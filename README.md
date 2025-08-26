@@ -14,8 +14,9 @@
 
 ## 📖 Intro  
 
-This is the **third iteration** of my portfolio site.  
-It now acts as a **frontend (React + Vite)** consuming content from **Umbraco CMS 16** via **Umbraco Content Delivery API**, deployed on **GitHub Pages**.  
+This is the **third iteration** of my portfolio site. 
+
+It now acts as a **frontend (React + Vite)** consuming content from my other project [Dynamic Portfolio v3 - Backend](https://github.com/filip-io/Portfolio-Umbraco-Headless/) built with **Umbraco CMS 16** using its **Content Delivery API**.
 
 ---
 
