@@ -16,7 +16,7 @@
 
 This is the **third iteration** of my portfolio site. 
 
-It now acts as a **frontend (React + Vite)** consuming content from my other project [Dynamic Portfolio v3 - Backend](https://github.com/filip-io/Portfolio-Umbraco-Headless/), a **backend built with Umbraco CMS 16** using its **Content Delivery API**, hosted on **Azure as a Web App**.
+It now acts as a **frontend (React + Vite)** consuming content from my other project [Dynamic Portfolio v3 - Backend](https://github.com/filip-io/Portfolio-Umbraco-Headless/),  a **backend built with Umbraco CMS 16** using its **Content Delivery API**, hosted on **Azure as a Web App**.
 
 ---
 
