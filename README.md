@@ -46,7 +46,7 @@ It now acts as a **frontend (React + Vite)** consuming content from my other pro
 ### 🏗️ Backend  
 - 🟣 **Platform:** [ASP.NET Core (.NET 9)](https://dotnet.microsoft.com/)  
 - 🧩 **CMS:** [Umbraco CMS 16](https://umbraco.com/)  
-- 🔑 **Headless API:** Umbraco Content Delivery API  
+- 🔑 **Headless API:** Umbraco Content Delivery API, hosted as Azure Web App
 - ☁️ **Storage:**  
   - Azure Blob Storage (media + ImageSharp caching)  
   - Azure SQL Database (content & configuration)  
