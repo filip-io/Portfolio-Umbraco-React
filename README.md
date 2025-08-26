@@ -99,7 +99,7 @@ npm run deploy
 ```mermaid
 flowchart TD
     A[🖥️ Frontend - React + Vite] --> B[🌐 Umbraco API - .NET 9]
-    B --> C[💾 Azure SQL Database]
+    B --> C[☁️ Azure SQL Database]
     B --> D[☁️ Azure Blob Storage]
 ```
 
