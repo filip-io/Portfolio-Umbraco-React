@@ -94,13 +94,13 @@ npm run deploy
 ```
 &nbsp;
 
-## Architecture diagram
+## 🏛️ Architecture diagram
 
 ```mermaid
 flowchart TD
-    A[Frontend - React + Vite] --> B[Umbraco API - ASP.NET Core .NET 9]
-    B --> C[Azure SQL Database]
-    B --> D[Azure Blob Storage]
+    A[🖥️ Frontend - React + Vite] --> B[🌐 Umbraco API - .NET 9]
+    B --> C[💾 Azure SQL Database]
+    B --> D[☁️ Azure Blob Storage]
 ```
 
 &nbsp;

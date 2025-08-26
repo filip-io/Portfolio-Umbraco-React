@@ -115,7 +115,7 @@ export default function Projects() {
     }
 
     // GitHub repository filtering and sorting
-    const excludedRepoNames = ['Reliable-Reservations', 'FantasyChas-Backend', 'AudialAtlasService', 'Mini_project-API', 'BankNyBank', 'Portfolio-react', 'git-test', 'git']
+    const excludedRepoNames = ['Portfolio-Umbraco-React', 'Portfolio-Umbraco-Headless', 'Reliable-Reservations', 'FantasyChas-Backend', 'AudialAtlasService', 'Mini_project-API', 'BankNyBank', 'Portfolio-react', 'git-test', 'git']
     const filteredRepositories = repositories.filter(repo => !excludedRepoNames.includes(repo.name))
     const sortedRepositories = filteredRepositories.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
 
