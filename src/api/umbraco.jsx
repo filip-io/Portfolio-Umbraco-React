@@ -12,7 +12,7 @@ async function getJson(url) {
  * @param {string} [fetchType="children"] - Whether to fetch children or descendants
  */
 export async function fetchContent(contentId, fetchType = "children") {
-  const url = `${BASE}/umbraco/delivery/api/v2/content?fetch=${fetchType}:${contentId}`;
+  const url = `${BASE}/umbraco/delivery/api/v2/content?fetch=${fetchType}:${contentId}&sort=sortOrder:asc`;
   return getJson(url);
 }
 
