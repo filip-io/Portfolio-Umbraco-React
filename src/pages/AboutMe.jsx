@@ -5,9 +5,17 @@ import { getMediaUrl } from "../utils/media";
 export default function AboutMe() {
   const [about, setAbout] = useState(null);
   const [techGroups, setTechGroups] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    fetchAbout().then(data => {
+    loadAbout();
+  }, []);
+
+  const loadAbout = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchAbout();
       const aboutSection = data.items[0];
       setAbout(aboutSection);
 
@@ -29,14 +37,61 @@ export default function AboutMe() {
         
         setTechGroups(grouped);
       }
-    });
-  }, []);
+      setErrorMessage('');
+    } catch (error) {
+      console.error('Error fetching about data:', error);
+      setErrorMessage('Failed to load about information. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  if (!about) return <p>Loading...</p>;
+  const formatDescription = (description) => {
+    if (!description) return [];
+    
+    // Split by double newlines to create paragraphs
+    return description
+      .split('\n\n')
+      .map(p => p.trim())
+      .filter(p => p.length > 0);
+  };
+
+  if (loading) {
+    return (
+      <main>
+        <article className="about-me-container">
+          <div className="spinner"></div>
+        </article>
+      </main>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <main>
+        <article className="tech-intro">
+          <p className="error-message">{errorMessage}</p>
+          <button className="btn" onClick={loadAbout}>Retry</button>
+        </article>
+      </main>
+    );
+  }
+
+  if (!about) {
+    return (
+      <main>
+        <article className="about-me-container">
+          <p>No about information found.</p>
+        </article>
+      </main>
+    );
+  }
 
   const aboutImage = about.properties.image?.[0]
     ? getMediaUrl(about.properties.image[0])
     : null;
+
+  const descriptionParagraphs = formatDescription(about.properties.aboutDescription);
 
   return (
     <main>
@@ -54,11 +109,13 @@ export default function AboutMe() {
 
           <div className="about-me-container-right-box">
             <h2>{about.properties.aboutTitle}</h2>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: about.properties.aboutDescription.markup,
-              }}
-            />
+            {descriptionParagraphs.length > 0 ? (
+              descriptionParagraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))
+            ) : (
+              <p>No description available.</p>
+            )}
           </div>
         </div>
 
