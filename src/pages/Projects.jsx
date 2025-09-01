@@ -114,6 +114,11 @@ export default function Projects() {
         return '_self'
     }
 
+    const getUrlComponent = (project) => {
+        // Use the componentUrl from Umbraco data if available
+        return project.properties.componentUrl || null
+    }
+
     // GitHub repository filtering and sorting
     const excludedRepoNames = ['Portfolio-Umbraco-React', 'Portfolio-Umbraco-Headless', 'Reliable-Reservations', 'FantasyChas-Backend', 'AudialAtlasService', 'Mini_project-API', 'BankNyBank', 'Portfolio-react', 'git-test', 'git']
     const filteredRepositories = repositories.filter(repo => !excludedRepoNames.includes(repo.name))
@@ -173,7 +178,7 @@ export default function Projects() {
                                     url={getProjectUrl(project)}
                                     urlText={getUrlText(project)}
                                     urlTarget={getUrlTarget(project)}
-                                    componentUrl={null}
+                                    componentUrl={getUrlComponent(project)}
                                 />
                             </div>
                         </div>
