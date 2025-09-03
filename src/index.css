@@ -14,6 +14,7 @@
 
 body,
 html {
+  overflow-y: scroll;
   color: rgb(207, 207, 207);
   background-color: #09091e;
   scroll-behavior: smooth;
