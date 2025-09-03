@@ -390,7 +390,7 @@ li {
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-right: 30px;
+  margin-right: 20px;
   margin-left: 200px;
 }
 
@@ -411,8 +411,8 @@ li {
 }
 
 .filip-about-pic {
-  border-radius: 50%;
-  width: 200px;
+  border-radius: 5%;
+  width: 325px;
   margin-right: 50px;
 }
 
@@ -463,7 +463,7 @@ li {
 }
 
 .tech-item-container {
-  position: relative; 
+  position: relative;
 }
 
 .tech-icon-container:hover .tech-label {
@@ -471,7 +471,7 @@ li {
 }
 
 .tech-label {
-  display: none; 
+  display: none;
   position: absolute;
   top: 100%;
   left: 50%;
@@ -514,7 +514,7 @@ li {
   }
 
   .filip-about-pic {
-    border-radius: 50%;
+    border-radius: 5%;
     margin: auto;
   }
 
@@ -524,6 +524,12 @@ li {
     padding: 25px;
     margin: auto;
     max-width: 350px;
+  }
+
+  .tech-intro {
+    text-align: center;
+    margin-top: 30px;
+    padding: 30px;
   }
 }
 
