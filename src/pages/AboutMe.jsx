@@ -15,7 +15,15 @@ export default function AboutMe() {
   const loadAbout = async () => {
     setLoading(true);
     try {
-      const data = await fetchAbout();
+      const url = `https://worker-cache-test.filipio.workers.dev/api/about`;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      
       const aboutSection = data.items[0];
       setAbout(aboutSection);
 
