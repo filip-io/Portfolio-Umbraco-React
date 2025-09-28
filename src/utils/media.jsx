@@ -5,7 +5,7 @@ export function getMediaUrl(mediaItem) {
   if (!url) return null;
 
   if (url.startsWith("/")) {
-    const BASE = import.meta.env.VITE_UMBRACO_BASE;
+    const BASE = import.meta.env.VITE_UMBRACO_AZURE;
     
     // Check if URL already starts with /media
     if (url.startsWith("/media")) {
