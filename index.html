@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,44 +8,150 @@
   <title>Redirecting…</title>
 
   <style>
-    html,body { height:100%; margin:0; background:#0C0B25; color:#FFFFFF; -webkit-font-smoothing:antialiased; }
-    .wrap {
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      padding:24px;
-      box-sizing:border-box;
-      text-align:center;
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: #0C0B25;
+      color: #FFFFFF;
+      -webkit-font-smoothing: antialiased;
     }
-    .card { max-width:720px; width:100%; opacity:0.95; }
-    .title { font-weight:600; font-size:20px; margin:0 0 6px; }
-    .sub { font-size:13px; color:#c7c7d6; margin:0 0 12px; }
-    .small { font-size:12px; color:#9a9aa8; margin:0; }
-    .spinner { width:36px; height:36px; border-radius:50%; margin:18px auto 0; box-sizing:border-box; border:4px solid rgba(255,255,255,0.08); border-top-color:#5bbad5; animation:spin 1s linear infinite; }
-    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .wrap {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      padding: 24px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .card {
+      max-width: 720px;
+      width: 100%;
+      opacity: 0.98;
+    }
+
+    .title {
+      font-weight: 600;
+      font-size: 20px;
+      margin: 0 0 6px;
+    }
+
+    .highlight-url {
+      font-weight: 700;
+      color: #fad91b;
+      font-size: 24px;
+      word-break: break-all;
+    }
+
+    .sub {
+      font-size: 14px;
+      color: #c7c7d6;
+      margin: 0 0 12px;
+    }
+
+    .small {
+      font-size: 12px;
+      color: #9a9aa8;
+      margin: 0;
+    }
+
+    a {
+      color: #ffd700;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #ffff00;
+    }
+
+    a.active {
+      font-weight: bold;
+      color: #ffff00;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 999px;
+      padding: 4px;
+      box-sizing: border-box;
+      margin: 14px 0;
+      height: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 8px rgba(72, 0, 255, 0.2);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4000ff, #6a39ff, #ffffff);
+      border-radius: 999px;
+      transition: width 0.1s linear;
+    }
+
+    .count {
+      margin-top: 8px;
+      color: #c7c7d6;
+      font-size: 13px;
+    }
   </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1 class="title">
+        Redirecting to
+        <span class="highlight-url">filipnilsson.com</span>
+      </h1>
+      <p class="sub">You will shortly arrive at the new site.</p>
+      <div class="progress-wrap">
+        <div id="progress-fill" class="progress-bar"></div>
+      </div>
+
+      <p id="countdown" class="count">Redirecting in 8 seconds…</p>
+
+      <p class="small">If it takes too long, <a href="https://filipnilsson.com/">click here</a>.</p>
+    </div>
+  </div>
 
   <script>
     const DEST = "https://filipnilsson.com/";
+    const TOTAL_SECONDS = 8;
+    let startTime = null;
 
-    // Delay redirect by 1500ms (1.5s)
-    setTimeout(() => {
-      location.replace(DEST);
-    }, 1500);
+    const progressEl = document.getElementById('progress-fill');
+    const countdownEl = document.getElementById('countdown');
+
+    function easeOutQuad(t) {
+      return t * (2 - t);
+    }
+
+    function update(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = (timestamp - startTime) / 1000;
+      const t = Math.min(elapsed / TOTAL_SECONDS, 1);
+
+      const pct = easeOutQuad(t) * 100;
+      progressEl.style.width = pct + '%';
+
+      const remaining = Math.max(TOTAL_SECONDS - Math.floor(elapsed), 0);
+      countdownEl.textContent = `Redirecting in ${remaining} second${remaining !== 1 ? 's' : ''}…`;
+
+      if (t < 1) {
+        requestAnimationFrame(update);
+      } else {
+        location.replace(DEST);
+      }
+    }
+
+    requestAnimationFrame(update);
   </script>
-
-  <meta http-equiv="refresh" content="5; url=https://filipnilsson.com/" />
-</head>
-<body>
-  <div class="wrap" aria-hidden="true">
-    <div class="card">
-      <h1 class="title">Redirecting to Filip Nilsson</h1>
-      <p class="sub">You’ll be forwarded shortly to the new site.</p>
-      <div class="spinner"></div>
-      <p class="small">If it takes too long, <a href="https://filipnilsson.com/" style="color:#5bbad5; text-decoration:underline;">click here</a>.</p>
-    </div>
-  </div>
 </body>
+
 </html>
