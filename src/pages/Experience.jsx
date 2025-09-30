@@ -53,11 +53,11 @@ export default function Experience() {
             <header>
                 <div className="experience-title">
                     <h2 className="section-title">Experience</h2>
-                    {cacheInfo && (
+                    {/* {cacheInfo && (
                         <div className="cache-info" style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.5rem' }}>
                             Cache: {cacheInfo.status} (Age: {cacheInfo.age}s)
                         </div>
-                    )}
+                    )} */}
                 </div>
             </header>
 
