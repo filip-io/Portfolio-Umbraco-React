@@ -29,7 +29,7 @@ This means that my portfolio now gets its content from my **backend built with U
 
 ## ​🌐 Live Demo
 
-🔗 [Visit my Portfolio](https://filip-io.github.io/Portfolio-Umbraco-React/)
+🔗 [Visit my Portfolio](https://portfolio-umbraco-react.pages.dev/)
 
 &nbsp;
 
