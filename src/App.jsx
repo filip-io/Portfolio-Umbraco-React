@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './pages/Layout'
 import { HomePage } from './pages/HomePage'
 import AboutMe from './pages/AboutMe'
@@ -10,18 +10,18 @@ import Education from './pages/Education'
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/aboutme" element={<AboutMe />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/siemensgallery" element={<SiemensGallery />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="aboutme" element={<AboutMe />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="siemensgallery" element={<SiemensGallery />} />
+          <Route path="experience" element={<Experience />} />
+          <Route path="education" element={<Education />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

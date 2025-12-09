@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchExperiences } from '../api/umbraco';
+import { getMediaUrl } from "../utils/media";
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import ExperienceModal from '../components/ExperienceModal';
 
@@ -8,6 +9,7 @@ export default function Experience() {
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [openModal, setOpenModal] = useState(null);
+    const [cacheInfo, setCacheInfo] = useState(null); // Optional: for cache debugging
 
     useEffect(() => {
         loadExperiences();
@@ -17,7 +19,16 @@ export default function Experience() {
         setLoading(true);
         try {
             const data = await fetchExperiences();
+
+            // The Cloudflare worker returns the data with cache metadata
             setExperiences(data.items || []);
+
+            // Optional: Display cache information for debugging
+            if (data._cache) {
+                setCacheInfo(data._cache);
+                console.log('Cache info:', data._cache);
+            }
+
             setErrorMessage('');
         } catch (error) {
             console.error('Error fetching experiences:', error);
@@ -35,23 +46,18 @@ export default function Experience() {
         setOpenModal(null);
     };
 
-    const getExperienceImage = (experience) => {
-        if (experience.properties.image && experience.properties.image.length > 0) {
-            const imageUrl = experience.properties.image[0].url;
-            if (imageUrl.startsWith('/')) {
-                const BASE = import.meta.env.VITE_UMBRACO_BASE;
-                return `${BASE}${imageUrl}`;
-            }
-            return imageUrl;
-        }
-        return '';
-    };
+    // Remove the local getExperienceImage function and use the imported getMediaUrl instead
 
     return (
         <main>
             <header>
                 <div className="experience-title">
                     <h2 className="section-title">Experience</h2>
+                    {/* {cacheInfo && (
+                        <div className="cache-info" style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.5rem' }}>
+                            Cache: {cacheInfo.status} (Age: {cacheInfo.age}s)
+                        </div>
+                    )} */}
                 </div>
             </header>
 
@@ -88,19 +94,22 @@ export default function Experience() {
                             </div>
                             <div className="experience-img-wrapper">
                                 <img
-                                    src={getExperienceImage(xp)}
+                                    src={getMediaUrl(xp.properties.image?.[0])}
                                     alt={`${xp.properties.company} logo`}
+                                    onError={(e) => {
+                                        e.target.src = 'https://placehold.co/600x400?text=Image+Not+Found';
+                                    }}
                                 />
                             </div>
                         </div>
                     ))}
-                    
+
                     {experiences.length === 0 && !loading && !errorMessage && (
                         <div className="no-experiences">
                             <p>No experience data found.</p>
                         </div>
                     )}
-                    
+
                     <ScrollToTopButton className="btn" />
                 </article>
             )}
