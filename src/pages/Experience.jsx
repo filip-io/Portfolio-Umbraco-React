@@ -46,8 +46,6 @@ export default function Experience() {
         setOpenModal(null);
     };
 
-    // Remove the local getExperienceImage function and use the imported getMediaUrl instead
-
     return (
         <main>
             <header>
