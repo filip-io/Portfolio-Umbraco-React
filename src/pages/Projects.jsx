@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { fetchProjects } from '../api/umbraco'
+import { getMediaUrl } from "../utils/media";
 import Modal from '../components/ProjectModal'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 
@@ -154,7 +155,7 @@ export default function Projects() {
                         >
                             <div className="projects-img-wrapper">
                                 <img
-                                    src={getProjectImage(project)}
+                                    src={getMediaUrl(project.properties.image?.[0])}
                                     alt={`${project.properties.title} logo`}
                                     onError={(e) => {
                                         // Fallback if image fails to load

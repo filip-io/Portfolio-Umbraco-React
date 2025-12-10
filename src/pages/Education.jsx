@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchEducations } from '../api/umbraco';
+import { getMediaUrl } from "../utils/media";
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import EducationModal from '../components/EducationModal';
 
@@ -33,18 +34,6 @@ export default function Education() {
 
     const closeEducationModal = () => {
         setOpenModal(null);
-    };
-
-    const getEducationImage = (education) => {
-        if (education.properties.image && education.properties.image.length > 0) {
-            const imageUrl = education.properties.image[0].url;
-            if (imageUrl.startsWith('/')) {
-                const BASE = import.meta.env.VITE_UMBRACO_BASE;
-                return `${BASE}${imageUrl}`;
-            }
-            return imageUrl;
-        }
-        return '';
     };
 
     return (
@@ -88,19 +77,22 @@ export default function Education() {
                             </div>
                             <div className="education-img-wrapper">
                                 <img
-                                    src={getEducationImage(edu)}
-                                    alt={`${edu.properties.title} logo`}
+                                    src={getMediaUrl(edu.properties.image?.[0])}
+                                    alt={`${edu.properties.company} logo`}
+                                    onError={(e) => {
+                                        e.target.src = 'https://placehold.co/600x400?text=Image+Not+Found';
+                                    }}
                                 />
                             </div>
                         </div>
                     ))}
-                    
+
                     {educations.length === 0 && !loading && !errorMessage && (
                         <div className="no-educations">
                             <p>No education data found.</p>
                         </div>
                     )}
-                    
+
                     <ScrollToTopButton className="btn" />
                 </article>
             )}
